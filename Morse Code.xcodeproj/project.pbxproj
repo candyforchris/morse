@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B6343C918FC5F56003395E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343C818FC5F56003395E6 /* Foundation.framework */; };
+		1B6343CB18FC5F56003395E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343CA18FC5F56003395E6 /* CoreGraphics.framework */; };
+		1B6343CD18FC5F56003395E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343CC18FC5F56003395E6 /* UIKit.framework */; };
+		1B6343D318FC5F56003395E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B6343D118FC5F56003395E6 /* InfoPlist.strings */; };
+		1B6343D518FC5F56003395E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6343D418FC5F56003395E6 /* main.m */; };
+		1B6343D918FC5F56003395E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6343D818FC5F56003395E6 /* AppDelegate.m */; };
+		1B6343DC18FC5F56003395E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B6343DA18FC5F56003395E6 /* Main.storyboard */; };
+		1B6343DF18FC5F56003395E6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6343DE18FC5F56003395E6 /* ViewController.m */; };
+		1B6343E118FC5F56003395E6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B6343E018FC5F56003395E6 /* Images.xcassets */; };
+		1B6343E818FC5F56003395E6 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343E718FC5F56003395E6 /* XCTest.framework */; };
+		1B6343E918FC5F56003395E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343C818FC5F56003395E6 /* Foundation.framework */; };
+		1B6343EA18FC5F56003395E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343CC18FC5F56003395E6 /* UIKit.framework */; };
+		1B6343F218FC5F56003395E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B6343F018FC5F56003395E6 /* InfoPlist.strings */; };
+		1B6343F418FC5F56003395E6 /* Morse_CodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6343F318FC5F56003395E6 /* Morse_CodeTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1B6343EB18FC5F56003395E6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B6343BD18FC5F56003395E6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B6343C418FC5F56003395E6;
+			remoteInfo = "Morse Code";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1B6343C518FC5F56003395E6 /* Morse Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Morse Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B6343C818FC5F56003395E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1B6343CA18FC5F56003395E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1B6343CC18FC5F56003395E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1B6343D018FC5F56003395E6 /* Morse Code-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Morse Code-Info.plist"; sourceTree = "<group>"; };
+		1B6343D218FC5F56003395E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1B6343D418FC5F56003395E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1B6343D618FC5F56003395E6 /* Morse Code-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Morse Code-Prefix.pch"; sourceTree = "<group>"; };
+		1B6343D718FC5F56003395E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1B6343D818FC5F56003395E6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1B6343DB18FC5F56003395E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1B6343DD18FC5F56003395E6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1B6343DE18FC5F56003395E6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1B6343E018FC5F56003395E6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1B6343E618FC5F56003395E6 /* Morse CodeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Morse CodeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B6343E718FC5F56003395E6 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		1B6343EF18FC5F56003395E6 /* Morse CodeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Morse CodeTests-Info.plist"; sourceTree = "<group>"; };
+		1B6343F118FC5F56003395E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1B6343F318FC5F56003395E6 /* Morse_CodeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Morse_CodeTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1B6343C218FC5F56003395E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B6343CB18FC5F56003395E6 /* CoreGraphics.framework in Frameworks */,
+				1B6343CD18FC5F56003395E6 /* UIKit.framework in Frameworks */,
+				1B6343C918FC5F56003395E6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B6343E318FC5F56003395E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B6343E818FC5F56003395E6 /* XCTest.framework in Frameworks */,
+				1B6343EA18FC5F56003395E6 /* UIKit.framework in Frameworks */,
+				1B6343E918FC5F56003395E6 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1B6343BC18FC5F56003395E6 = {
+			isa = PBXGroup;
+			children = (
+				1B6343CE18FC5F56003395E6 /* Morse Code */,
+				1B6343ED18FC5F56003395E6 /* Morse CodeTests */,
+				1B6343C718FC5F56003395E6 /* Frameworks */,
+				1B6343C618FC5F56003395E6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1B6343C618FC5F56003395E6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1B6343C518FC5F56003395E6 /* Morse Code.app */,
+				1B6343E618FC5F56003395E6 /* Morse CodeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1B6343C718FC5F56003395E6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1B6343C818FC5F56003395E6 /* Foundation.framework */,
+				1B6343CA18FC5F56003395E6 /* CoreGraphics.framework */,
+				1B6343CC18FC5F56003395E6 /* UIKit.framework */,
+				1B6343E718FC5F56003395E6 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1B6343CE18FC5F56003395E6 /* Morse Code */ = {
+			isa = PBXGroup;
+			children = (
+				1B6343D718FC5F56003395E6 /* AppDelegate.h */,
+				1B6343D818FC5F56003395E6 /* AppDelegate.m */,
+				1B6343DA18FC5F56003395E6 /* Main.storyboard */,
+				1B6343DD18FC5F56003395E6 /* ViewController.h */,
+				1B6343DE18FC5F56003395E6 /* ViewController.m */,
+				1B6343E018FC5F56003395E6 /* Images.xcassets */,
+				1B6343CF18FC5F56003395E6 /* Supporting Files */,
+			);
+			path = "Morse Code";
+			sourceTree = "<group>";
+		};
+		1B6343CF18FC5F56003395E6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1B6343D018FC5F56003395E6 /* Morse Code-Info.plist */,
+				1B6343D118FC5F56003395E6 /* InfoPlist.strings */,
+				1B6343D418FC5F56003395E6 /* main.m */,
+				1B6343D618FC5F56003395E6 /* Morse Code-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1B6343ED18FC5F56003395E6 /* Morse CodeTests */ = {
+			isa = PBXGroup;
+			children = (
+				1B6343F318FC5F56003395E6 /* Morse_CodeTests.m */,
+				1B6343EE18FC5F56003395E6 /* Supporting Files */,
+			);
+			path = "Morse CodeTests";
+			sourceTree = "<group>";
+		};
+		1B6343EE18FC5F56003395E6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1B6343EF18FC5F56003395E6 /* Morse CodeTests-Info.plist */,
+				1B6343F018FC5F56003395E6 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1B6343C418FC5F56003395E6 /* Morse Code */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B6343F718FC5F56003395E6 /* Build configuration list for PBXNativeTarget "Morse Code" */;
+			buildPhases = (
+				1B6343C118FC5F56003395E6 /* Sources */,
+				1B6343C218FC5F56003395E6 /* Frameworks */,
+				1B6343C318FC5F56003395E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Morse Code";
+			productName = "Morse Code";
+			productReference = 1B6343C518FC5F56003395E6 /* Morse Code.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1B6343E518FC5F56003395E6 /* Morse CodeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B6343FA18FC5F56003395E6 /* Build configuration list for PBXNativeTarget "Morse CodeTests" */;
+			buildPhases = (
+				1B6343E218FC5F56003395E6 /* Sources */,
+				1B6343E318FC5F56003395E6 /* Frameworks */,
+				1B6343E418FC5F56003395E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B6343EC18FC5F56003395E6 /* PBXTargetDependency */,
+			);
+			name = "Morse CodeTests";
+			productName = "Morse CodeTests";
+			productReference = 1B6343E618FC5F56003395E6 /* Morse CodeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1B6343BD18FC5F56003395E6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Christopher Cohen";
+				TargetAttributes = {
+					1B6343E518FC5F56003395E6 = {
+						TestTargetID = 1B6343C418FC5F56003395E6;
+					};
+				};
+			};
+			buildConfigurationList = 1B6343C018FC5F56003395E6 /* Build configuration list for PBXProject "Morse Code" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1B6343BC18FC5F56003395E6;
+			productRefGroup = 1B6343C618FC5F56003395E6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1B6343C418FC5F56003395E6 /* Morse Code */,
+				1B6343E518FC5F56003395E6 /* Morse CodeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1B6343C318FC5F56003395E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B6343E118FC5F56003395E6 /* Images.xcassets in Resources */,
+				1B6343D318FC5F56003395E6 /* InfoPlist.strings in Resources */,
+				1B6343DC18FC5F56003395E6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B6343E418FC5F56003395E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B6343F218FC5F56003395E6 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1B6343C118FC5F56003395E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B6343DF18FC5F56003395E6 /* ViewController.m in Sources */,
+				1B6343D918FC5F56003395E6 /* AppDelegate.m in Sources */,
+				1B6343D518FC5F56003395E6 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B6343E218FC5F56003395E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B6343F418FC5F56003395E6 /* Morse_CodeTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1B6343EC18FC5F56003395E6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B6343C418FC5F56003395E6 /* Morse Code */;
+			targetProxy = 1B6343EB18FC5F56003395E6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1B6343D118FC5F56003395E6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B6343D218FC5F56003395E6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1B6343DA18FC5F56003395E6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B6343DB18FC5F56003395E6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1B6343F018FC5F56003395E6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B6343F118FC5F56003395E6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1B6343F518FC5F56003395E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1B6343F618FC5F56003395E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1B6343F818FC5F56003395E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Morse Code/Morse Code-Prefix.pch";
+				INFOPLIST_FILE = "Morse Code/Morse Code-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1B6343F918FC5F56003395E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Morse Code/Morse Code-Prefix.pch";
+				INFOPLIST_FILE = "Morse Code/Morse Code-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		1B6343FB18FC5F56003395E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Morse Code.app/Morse Code";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Morse Code/Morse Code-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Morse CodeTests/Morse CodeTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		1B6343FC18FC5F56003395E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Morse Code.app/Morse Code";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Morse Code/Morse Code-Prefix.pch";
+				INFOPLIST_FILE = "Morse CodeTests/Morse CodeTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1B6343C018FC5F56003395E6 /* Build configuration list for PBXProject "Morse Code" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B6343F518FC5F56003395E6 /* Debug */,
+				1B6343F618FC5F56003395E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B6343F718FC5F56003395E6 /* Build configuration list for PBXNativeTarget "Morse Code" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B6343F818FC5F56003395E6 /* Debug */,
+				1B6343F918FC5F56003395E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1B6343FA18FC5F56003395E6 /* Build configuration list for PBXNativeTarget "Morse CodeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B6343FB18FC5F56003395E6 /* Debug */,
+				1B6343FC18FC5F56003395E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1B6343BD18FC5F56003395E6 /* Project object */;
+}
