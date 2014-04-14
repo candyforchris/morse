@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B164D9718FC8D2000BC9089 /* MorseCodeCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B164D9618FC8D2000BC9089 /* MorseCodeCharacter.m */; };
 		1B6343C918FC5F56003395E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343C818FC5F56003395E6 /* Foundation.framework */; };
 		1B6343CB18FC5F56003395E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343CA18FC5F56003395E6 /* CoreGraphics.framework */; };
 		1B6343CD18FC5F56003395E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343CC18FC5F56003395E6 /* UIKit.framework */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B164D9518FC8D2000BC9089 /* MorseCodeCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MorseCodeCharacter.h; sourceTree = "<group>"; };
+		1B164D9618FC8D2000BC9089 /* MorseCodeCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MorseCodeCharacter.m; sourceTree = "<group>"; };
 		1B6343C518FC5F56003395E6 /* Morse Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Morse Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6343C818FC5F56003395E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1B6343CA18FC5F56003395E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -79,6 +82,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B0E5FD318FC7D8500D52F1A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1B164D9518FC8D2000BC9089 /* MorseCodeCharacter.h */,
+				1B164D9618FC8D2000BC9089 /* MorseCodeCharacter.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		1B0E5FD418FC7D8B00D52F1A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1B6343DD18FC5F56003395E6 /* ViewController.h */,
+				1B6343DE18FC5F56003395E6 /* ViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		1B6343BC18FC5F56003395E6 = {
 			isa = PBXGroup;
 			children = (
@@ -115,8 +136,8 @@
 				1B6343D718FC5F56003395E6 /* AppDelegate.h */,
 				1B6343D818FC5F56003395E6 /* AppDelegate.m */,
 				1B6343DA18FC5F56003395E6 /* Main.storyboard */,
-				1B6343DD18FC5F56003395E6 /* ViewController.h */,
-				1B6343DE18FC5F56003395E6 /* ViewController.m */,
+				1B0E5FD418FC7D8B00D52F1A /* Controllers */,
+				1B0E5FD318FC7D8500D52F1A /* Model */,
 				1B6343E018FC5F56003395E6 /* Images.xcassets */,
 				1B6343CF18FC5F56003395E6 /* Supporting Files */,
 			);
@@ -252,6 +273,7 @@
 				1B6343DF18FC5F56003395E6 /* ViewController.m in Sources */,
 				1B6343D918FC5F56003395E6 /* AppDelegate.m in Sources */,
 				1B6343D518FC5F56003395E6 /* main.m in Sources */,
+				1B164D9718FC8D2000BC9089 /* MorseCodeCharacter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +478,7 @@
 				1B6343F918FC5F56003395E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1B6343FA18FC5F56003395E6 /* Build configuration list for PBXNativeTarget "Morse CodeTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +487,7 @@
 				1B6343FC18FC5F56003395E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
