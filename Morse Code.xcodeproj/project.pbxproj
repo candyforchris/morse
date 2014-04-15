@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1B164D9718FC8D2000BC9089 /* MorseCodeCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B164D9618FC8D2000BC9089 /* MorseCodeCharacter.m */; };
+		1B1F9E9318FDB6EC0001D79B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B1F9E9218FDB6EC0001D79B /* AVFoundation.framework */; };
 		1B6343C918FC5F56003395E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343C818FC5F56003395E6 /* Foundation.framework */; };
 		1B6343CB18FC5F56003395E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343CA18FC5F56003395E6 /* CoreGraphics.framework */; };
 		1B6343CD18FC5F56003395E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343CC18FC5F56003395E6 /* UIKit.framework */; };
@@ -22,6 +22,7 @@
 		1B6343EA18FC5F56003395E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B6343CC18FC5F56003395E6 /* UIKit.framework */; };
 		1B6343F218FC5F56003395E6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B6343F018FC5F56003395E6 /* InfoPlist.strings */; };
 		1B6343F418FC5F56003395E6 /* Morse_CodeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6343F318FC5F56003395E6 /* Morse_CodeTests.m */; };
+		1BE23A2D18FDC512000CC001 /* MorseCodeMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BE23A2C18FDC512000CC001 /* MorseCodeMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B164D9518FC8D2000BC9089 /* MorseCodeCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MorseCodeCharacter.h; sourceTree = "<group>"; };
-		1B164D9618FC8D2000BC9089 /* MorseCodeCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MorseCodeCharacter.m; sourceTree = "<group>"; };
+		1B1F9E9218FDB6EC0001D79B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1B6343C518FC5F56003395E6 /* Morse Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Morse Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6343C818FC5F56003395E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1B6343CA18FC5F56003395E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -56,6 +56,8 @@
 		1B6343EF18FC5F56003395E6 /* Morse CodeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Morse CodeTests-Info.plist"; sourceTree = "<group>"; };
 		1B6343F118FC5F56003395E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1B6343F318FC5F56003395E6 /* Morse_CodeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Morse_CodeTests.m; sourceTree = "<group>"; };
+		1BE23A2B18FDC512000CC001 /* MorseCodeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MorseCodeMessage.h; sourceTree = "<group>"; };
+		1BE23A2C18FDC512000CC001 /* MorseCodeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MorseCodeMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B1F9E9318FDB6EC0001D79B /* AVFoundation.framework in Frameworks */,
 				1B6343CB18FC5F56003395E6 /* CoreGraphics.framework in Frameworks */,
 				1B6343CD18FC5F56003395E6 /* UIKit.framework in Frameworks */,
 				1B6343C918FC5F56003395E6 /* Foundation.framework in Frameworks */,
@@ -85,8 +88,8 @@
 		1B0E5FD318FC7D8500D52F1A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1B164D9518FC8D2000BC9089 /* MorseCodeCharacter.h */,
-				1B164D9618FC8D2000BC9089 /* MorseCodeCharacter.m */,
+				1BE23A2B18FDC512000CC001 /* MorseCodeMessage.h */,
+				1BE23A2C18FDC512000CC001 /* MorseCodeMessage.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -122,6 +125,7 @@
 		1B6343C718FC5F56003395E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B1F9E9218FDB6EC0001D79B /* AVFoundation.framework */,
 				1B6343C818FC5F56003395E6 /* Foundation.framework */,
 				1B6343CA18FC5F56003395E6 /* CoreGraphics.framework */,
 				1B6343CC18FC5F56003395E6 /* UIKit.framework */,
@@ -270,10 +274,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BE23A2D18FDC512000CC001 /* MorseCodeMessage.m in Sources */,
 				1B6343DF18FC5F56003395E6 /* ViewController.m in Sources */,
 				1B6343D918FC5F56003395E6 /* AppDelegate.m in Sources */,
 				1B6343D518FC5F56003395E6 /* main.m in Sources */,
-				1B164D9718FC8D2000BC9089 /* MorseCodeCharacter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
