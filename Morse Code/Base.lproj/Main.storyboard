@@ -43,7 +43,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="makeFlash:" destination="rmI-7M-Nla" eventType="touchUpInside" id="JWW-oJ-tM5"/>
+                                            <action selector="sendMessage:" destination="rmI-7M-Nla" eventType="touchUpInside" id="3IS-V2-LJj"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="178" translatesAutoresizingMaskIntoConstraints="NO" id="mI8-nP-CZv">
@@ -70,8 +70,8 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="interfacePanel" destination="2Gg-2p-gjA" id="qAK-kF-aML"/>
-                        <outlet property="morseLabel" destination="mI8-nP-CZv" id="9wd-eN-Jd0"/>
-                        <outlet property="morseTextField" destination="Qna-tw-jYV" id="3uW-bp-wNj"/>
+                        <outlet property="label" destination="mI8-nP-CZv" id="6es-9U-JZr"/>
+                        <outlet property="textField" destination="Qna-tw-jYV" id="1yf-xC-kEj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gOk-l1-Tdy" userLabel="First Responder" sceneMemberID="firstResponder"/>

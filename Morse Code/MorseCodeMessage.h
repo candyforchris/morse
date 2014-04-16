@@ -10,10 +10,11 @@
 
 @interface MorseCodeMessage : NSObject
 
-@property (nonatomic, strong) NSString *morseIntervalString;
-@property (nonatomic, strong) NSArray *flashIntervalArray;
+@property (nonatomic, strong) NSString *untranslatedString, *translatedString;
 
-+(instancetype)newMessageFrom:(NSString *)english;
+-(void)setUntranslatedString:(NSString *)standardString;
+
+//+(instancetype)newMessageFrom:(NSString *)english;
 
 
 @end
