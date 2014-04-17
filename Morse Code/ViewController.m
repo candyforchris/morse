@@ -39,7 +39,7 @@
     _message            = [MorseCodeMessage new];
     
     //setup background thread manager
-    _morseQueue             = [NSOperationQueue new];
+    _morseQueue         = [NSOperationQueue new];
 
     //assign delegate methods to self
     _torchController.delegate   = self;

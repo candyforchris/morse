@@ -11,13 +11,11 @@
 @implementation MorseCodeMessage
 
 -(void)setRomanCharacterString:(NSString *)romanCharacterString {
-
-    //set standard string
-    _romanCharacterString = romanCharacterString;
     
+    _romanCharacterString = @"";
     NSString *morseCharacter = @"";
     
-    for (NSInteger i = 0; i < (_romanCharacterString.length); i++) {
+    for (NSInteger i = 0; i < (romanCharacterString.length); i++) {
         
         switch ([romanCharacterString characterAtIndex:i]) {
                 
@@ -62,17 +60,25 @@
             case '9': morseCharacter = @"33331"; break;
                 
             //space
-            case ' ': morseCharacter = @"X"; break;
+            case ' ': morseCharacter = @"X";    break;
                 
-            default: break;
+            default: morseCharacter  = NULL;    break;
                 
         } //end switch
         
         if (morseCharacter) {
+            
+            //compose morse character script
             _morseCharacterString = [NSString stringWithFormat:@"%@|%@", _morseCharacterString, morseCharacter];
+            
+            //recompose roman character string
+            _romanCharacterString = [NSString stringWithFormat:@"%@%c", _romanCharacterString, [romanCharacterString characterAtIndex:i]];
         }
+        
+        
     }
 }
+
 
 
 @end

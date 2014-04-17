@@ -22,16 +22,6 @@
 
 @implementation TorchController
 
--(id)init {
-    self = [super init];
-    
-    if (self) {
-
-    }
-    
-    return self;
-}
-
 -(void)transmitMessage: (MorseCodeMessage *)message {
     
     _motionManager              = [CMMotionManager new];
@@ -43,7 +33,6 @@
     
     //translated & untranslated charcter incrementors
     NSInteger i, j = 0;
-    NSString *romanChar = @"";
     
     //iterate through each character in the translated string and display them via flash
     for (i = 1; i < (message.morseCharacterString.length); i++) {
@@ -51,9 +40,11 @@
         if (_earlyTermination) goto TERMINATION_POINT;
         
         //display coresponding roman characer in hud
-        romanChar = [NSString stringWithFormat:@"%c", [message.romanCharacterString characterAtIndex:j]];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{ [self.delegate updateHud:romanChar]; }];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.delegate updateHud:[NSString stringWithFormat:@"%c", [message.romanCharacterString characterAtIndex:j]]];
+        }];
     
+        //translate morse script into flashes of light
         switch ([message.morseCharacterString characterAtIndex:i]) {
                     
             case '1': //flash 1 unit followed by 1 unit pause
@@ -78,12 +69,13 @@
         }
     
     TERMINATION_POINT:
+    
+    [_motionRecognizerQueue cancelAllOperations];
+    
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.delegate terminateHud];
     }];
 }
-
-
 
 +(void)toggleFlash:(CGFloat)flashDuration {
     
