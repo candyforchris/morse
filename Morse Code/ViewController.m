@@ -19,7 +19,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *label;
 @property (strong, nonatomic) IBOutlet UIView *interfacePanel;
 @property (strong, nonatomic) IBOutlet UIButton *sendMessageButton;
-@property (strong, nonatomic) NSOperationQueue *morseQueue;
 @property (nonatomic, strong) TorchController *torchController;
 
 
@@ -37,9 +36,6 @@
     //allocate and initialize objects
     _torchController    = [TorchController new];
     _message            = [MorseCodeMessage new];
-    
-    //setup background thread manager
-    _morseQueue         = [NSOperationQueue new];
 
     //assign delegate methods to self
     _torchController.delegate   = self;
@@ -48,8 +44,13 @@
     //setup visual atributes of interface panel
     _interfacePanel.layer.cornerRadius  = _interfacePanel.frame.size.width * .1;
     _interfacePanel.backgroundColor     = [UIColor clearColor];
-    _interfacePanel.layer.borderWidth   = 1;
-    _interfacePanel.layer.borderColor   = [UIColor blackColor].CGColor;
+    _interfacePanel.layer.borderWidth   = 3;
+    _interfacePanel.layer.borderColor   = [UIColor orangeColor].CGColor;
+    _textField.layer.borderColor        = [UIColor clearColor].CGColor;
+    _textField.backgroundColor          = [UIColor orangeColor];
+    _textField.textColor                = [UIColor blackColor];
+    _label.textColor                    = [UIColor orangeColor];
+    self.view.backgroundColor           = [UIColor blackColor];
 }
 
 
@@ -64,7 +65,6 @@
 }
 
 -(void)updateHud:(NSString *)untranslatedCharacter {
-    NSLog(@"%@", untranslatedCharacter);
     [ProgressHUD show:untranslatedCharacter];
 }
 
@@ -73,7 +73,6 @@
     [_sendMessageButton setEnabled:YES];
     [_textField setEnabled:YES];
     _interfacePanel.alpha = 1;
-    [_morseQueue cancelAllOperations];
 }
 
 
@@ -85,7 +84,7 @@
     [_textField setEnabled:NO];
     _interfacePanel.alpha = .5;
 
-    [_morseQueue addOperationWithBlock:^{ [_torchController transmitMessage:_message]; }];
+   [_torchController transmitMessage:_message];
 }
 
 //dismiss keyboard when anything is touched

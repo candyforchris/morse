@@ -14,5 +14,4 @@
 
 -(void)setRomanCharacterString:(NSString *)romanCharacterString;
 
-
 @end

@@ -34,14 +34,3 @@
 
  @end
  
-
-/*
-#import <Foundation/Foundation.h>
-
-@interface TorchController : NSObject
-
-+(void)toggleFlash:(CGFloat)flashDuration;
-
-@end
- 
- */

@@ -74,11 +74,8 @@
             //recompose roman character string
             _romanCharacterString = [NSString stringWithFormat:@"%@%c", _romanCharacterString, [romanCharacterString characterAtIndex:i]];
         }
-        
-        
     }
 }
-
 
 
 @end
