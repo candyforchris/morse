@@ -10,11 +10,9 @@
 
 @interface MorseCodeMessage : NSObject
 
-@property (nonatomic, strong) NSString *untranslatedString, *translatedString;
+@property (nonatomic, strong) NSString *romanCharacterString, *morseCharacterString;
 
--(void)setUntranslatedString:(NSString *)standardString;
-
-//+(instancetype)newMessageFrom:(NSString *)english;
+-(void)setRomanCharacterString:(NSString *)romanCharacterString;
 
 
 @end

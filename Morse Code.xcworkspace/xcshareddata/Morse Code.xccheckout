@@ -5,7 +5,7 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>29464F67-E283-474B-9425-82A75FE433F2</string>
+	<string>6965B572-100C-4021-B423-C1A7F00CE31C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Morse Code</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
@@ -14,11 +14,11 @@
 		<string>ssh://github.com/candyforchris/morse.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Morse Code.xcodeproj/project.xcworkspace</string>
+	<string>Morse Code.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>9A926FE4-602E-4A51-8383-96045B142F72</key>
-		<string>../..</string>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/candyforchris/morse.git</string>

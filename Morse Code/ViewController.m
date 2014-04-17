@@ -9,11 +9,19 @@
 #import "ViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MorseCodeMessage.h"
+#import "ProgressHUD.h"
+#import "TorchController.h"
+#import <CoreMotion/CoreMotion.h>
 
-@interface ViewController () <UITextFieldDelegate>
+@interface ViewController () <UITextFieldDelegate, TorchControlleDelegate>
+
 @property (strong, nonatomic) IBOutlet UITextField *textField;
 @property (strong, nonatomic) IBOutlet UILabel *label;
 @property (strong, nonatomic) IBOutlet UIView *interfacePanel;
+@property (strong, nonatomic) IBOutlet UIButton *sendMessageButton;
+@property (strong, nonatomic) NSOperationQueue *morseQueue;
+@property (nonatomic, strong) TorchController *torchController;
+
 
 @property (nonatomic, strong) MorseCodeMessage *message;
 
@@ -21,29 +29,32 @@
 
 @implementation ViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _message = [MorseCodeMessage new];
-    _interfacePanel.layer.cornerRadius = _interfacePanel.frame.size.width * .1;
-    _interfacePanel.backgroundColor = [UIColor colorWithRed:.4 green:8 blue:.9 alpha:.7];
-
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-
-- (IBAction)translateButton:(id)sender {
     
-    _message.untranslatedString = _textField.text;
-    _label.text = _message.translatedString;
+    //allocate and initialize objects
+    _torchController    = [TorchController new];
+    _message            = [MorseCodeMessage new];
     
-}
+    //setup background thread manager
+    _morseQueue             = [NSOperationQueue new];
 
+    //assign delegate methods to self
+    _torchController.delegate   = self;
+    _textField.delegate         = self;
+    
+    //setup visual atributes of interface panel
+    _interfacePanel.layer.cornerRadius  = _interfacePanel.frame.size.width * .1;
+    _interfacePanel.backgroundColor     = [UIColor clearColor];
+    _interfacePanel.layer.borderWidth   = 1;
+    _interfacePanel.layer.borderColor   = [UIColor blackColor].CGColor;
+}
 
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,70 +63,47 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)updateHud:(NSString *)untranslatedCharacter {
+    NSLog(@"%@", untranslatedCharacter);
+    [ProgressHUD show:untranslatedCharacter];
+}
 
-
--(void)flash:(CGFloat)interval {
-    
-    AVCaptureDevice *flasher = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if ([flasher hasTorch] && [flasher hasFlash] ) {
-        
-        //turn torch on
-        [flasher lockForConfiguration:nil];
-        [flasher setTorchMode:AVCaptureTorchModeOn];
-        [flasher unlockForConfiguration];
-        
-        usleep(interval);
-        
-        //turn torch off
-        [flasher lockForConfiguration:nil];
-        [flasher setTorchMode:AVCaptureTorchModeOff];
-        [flasher unlockForConfiguration];
-
-    }
+-(void)terminateHud {
+    [ProgressHUD dismiss];
+    [_sendMessageButton setEnabled:YES];
+    [_textField setEnabled:YES];
+    _interfacePanel.alpha = 1;
+    [_morseQueue cancelAllOperations];
 }
 
 
 - (IBAction)sendMessage:(id)sender {
     
-    NSOperationQueue *morseQueue = [NSOperationQueue new];
+    if (!_textField.text.length) return;
     
-    [morseQueue addOperationWithBlock:^{
-        
-        if (!_message.translatedString.length) return;
-        
-        for (NSInteger i = 1; i < (_message.translatedString.length); i++) {
-            
-            switch ([_message.translatedString characterAtIndex:i]) {
-                    
-                case '1': //flash 1 microsecond followed by 1 microsecond pause
-                    [self flash:100000];
-                    usleep(100000);
-                    break;
-                    
-                case '3': //flash 3 microseconds followed by 1 microsecond pause
-                    [self flash:300000];
-                    usleep(100000);
-                    break;
-                    
-                case '0': //pause flash sequence 7 microseconds
-                    usleep(700000);
-                    break;
-            }
-        }
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            NSLog(@"Done");
-        }];
-    }];
+    [_sendMessageButton setEnabled:NO];
+    [_textField setEnabled:NO];
+    _interfacePanel.alpha = .5;
+
+    [_morseQueue addOperationWithBlock:^{ [_torchController transmitMessage:_message]; }];
 }
 
 //dismiss keyboard when anything is touched
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UIControl *control in self.view.subviews) {
-        if ([control isKindOfClass:[UITextField class]] || [control isKindOfClass:[UITextView class]] ) {
-            [control endEditing:YES];
-        }
+        [control endEditing:YES];
     }
 }
+
+#pragma mark - UITextField delegate methods
+-(void)textFieldDidBeginEditing:(UITextField *)textField {
+    _label.text = _message.morseCharacterString = @"";
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    _message.romanCharacterString = _textField.text;
+    _label.text = _message.morseCharacterString;
+}
+
 
 @end
