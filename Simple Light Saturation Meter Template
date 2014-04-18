@@ -1,0 +1,113 @@
+@interface ViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
+
+//video capture properties
+@property (strong, nonatomic) AVCaptureSession *session;
+@property (strong, nonatomic) AVCaptureDevice *device;
+@property (strong, nonatomic) AVCaptureDeviceInput *input;
+@property (strong, nonatomic) AVCaptureVideoDataOutput *output;
+
+#pragma mark - video input
+
+// Create and configure a capture session and start it running
+- (void)setupCaptureSession
+{
+    NSLog(@"setup capture session");
+    
+    // Create new session
+    _session = [AVCaptureSession new];
+    
+    // Configure the session to produce low resolution video frames
+    _session.sessionPreset = AVCaptureSessionPreset352x288;
+    
+    // Select the rear camera and associate it with the 'device' object
+    _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    // Create a device input with the device and add it to the session.
+    NSError *error;
+    _input = [AVCaptureDeviceInput deviceInputWithDevice:_device error:&error];
+    if (error) {
+        NSLog(@"error establishing device input");
+        return;
+    }
+
+    //add input to session
+    [_session addInput:_input];
+    
+    //configure device
+    [_device lockForConfiguration:nil]; //lock device for configuration
+    [_device setExposureMode:AVCaptureExposureModeLocked];
+    [_device setActiveVideoMinFrameDuration:CMTimeMake(1, 10)]; //configure device framerate
+    [_device unlockForConfiguration]; //unlock device for configuration
+    
+    // Create a VideoDataOutput and add it to the session
+    _output = [AVCaptureVideoDataOutput new];
+    [_session addOutput:_output];
+    
+    // Configure your output
+    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
+    [_output setSampleBufferDelegate:self queue:queue];
+    
+    // Specify the pixel format; this is essentially a template
+    _output.videoSettings = [NSDictionary dictionaryWithObject: [NSNumber numberWithInt:kCVPixelFormatType_32BGRA] forKey (id)kCVPixelBufferPixelFormatTypeKey]; //This format is 32 bit depth, (RGB & Alpha)
+    
+    // Start the recording session!
+    [_session startRunning];
+
+}
+
+// Delegate method which called when a sample buffer was written
+- (void)captureOutput:(AVCaptureOutput *)captureOutput
+didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+       fromConnection:(AVCaptureConnection *)connection
+{
+
+    [self analyzeCameraFrameForLuminocity:sampleBuffer];
+    
+}
+
+
+- (void)analyzeCameraFrameForLuminocity:(CMSampleBufferRef)sampleBuffer
+{
+    
+    CVPixelBufferRef pixelBuffer =
+    CMSampleBufferGetImageBuffer(sampleBuffer);
+    
+    CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
+    
+	//RGB saturation levels
+    int redSaturation     = 0;
+    int blueSaturation    = 0;
+    int greenSaturation   = 0;
+
+    //we use these values to determine the dimensions and format of our bitmap in memory
+    int bufferWidth     = CVPixelBufferGetWidth(pixelBuffer);
+    int bufferHeight    = CVPixelBufferGetHeight(pixelBuffer);
+    int rowBytes        = CVPixelBufferGetBytesPerRow(pixelBuffer);
+    int pixelBytes      = rowBytes/bufferWidth;
+    
+    unsigned char *base = (unsigned char *)
+    CVPixelBufferGetBaseAddress(pixelBuffer);
+    
+    //iterate through the bitmap, summing the value of every fourth pixel (25,344 pixels in total)
+    for( int row = 0; row < bufferHeight; row+=4 ) {
+        for( int column = 0; column < bufferWidth; column+=4 ) {
+            
+            unsigned char *pixel = base + (row * rowBytes) + (column * pixelBytes);
+            
+			// sum the RGB values
+            blueSaturation    += pixel[0];
+            greenSaturation   += pixel[1];
+            redSaturation     += pixel[2];
+            
+            }
+    }
+    
+    CVPixelBufferUnlockBaseAddress(pixelBuffer, 0 );
+
+	//Log the luminocity of our selected color elements
+    NSLog(@"redness: %.5f %%",  (255.0*redSaturation) / ((255.0*bufferWidth*bufferHeight)/4));
+    NSLog(@"greeness: %.5f %%", (255.0*greenSaturation) / ((255.0*bufferWidth*bufferHeight)/4));
+    NSLog(@"blueness: %.5f %%", (255.0*greenSaturation) / ((255.0*bufferWidth*bufferHeight)/4));
+
+    
+}
