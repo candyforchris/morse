@@ -54,18 +54,16 @@
             switch ([message.morseCharacterString characterAtIndex:i]) {
                     
                 case '1': //flash 1 unit followed by 1 unit pause
-                    [TorchController toggleFlash:100000];
-                    usleep(100000);
+                    [TorchController toggleFlash:100000]; usleep(100000);
                     break;
                     
                 case '3': //flash 3 units followed by 1 unit pause
-                    [TorchController toggleFlash:300000];
-                    usleep(100000);
+                    [TorchController toggleFlash:300000]; usleep(100000);
                     break;
                     
                 case '|': //pause flash sequence 3 units between words
                     usleep(200000); //this + the preceeding thread pause is 3 units
-                    j++; //increment the untranslated char counter
+                    j++;            //increment the untranslated char counter
                     break;
                     
                 case 'X': //pause flash sequence 7 units total
@@ -74,7 +72,7 @@
                 }
             }
     
-        TERMINATION_POINT:
+        TERMINATION_POINT: //'goto' label
     
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [_motionRecognizerQueue cancelAllOperations];

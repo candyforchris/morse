@@ -34,7 +34,7 @@
                                         <textInputTraits key="textInputTraits" keyboardAppearance="light"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iCA-2j-NaM">
-                                        <rect key="frame" x="68" y="187" width="93" height="30"/>
+                                        <rect key="frame" x="18" y="185" width="44" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Send">
@@ -43,6 +43,18 @@
                                         </state>
                                         <connections>
                                             <action selector="sendMessage:" destination="rmI-7M-Nla" eventType="touchUpInside" id="3IS-V2-LJj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FSf-G2-pw0">
+                                        <rect key="frame" x="167" y="185" width="44" height="34"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Get">
+                                            <color key="titleColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="getMessage:" destination="rmI-7M-Nla" eventType="touchUpInside" id="wX9-LG-5YW"/>
                                         </connections>
                                     </button>
                                 </subviews>

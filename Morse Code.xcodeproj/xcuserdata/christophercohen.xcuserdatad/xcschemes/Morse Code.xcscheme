@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1B6343C418FC5F56003395E6"
-               BuildableName = "Morse Code.app"
-               BlueprintName = "Morse Code"
+               BuildableName = "Morse Mastah.app"
+               BlueprintName = "Morse Mastah"
                ReferencedContainer = "container:Morse Code.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B6343C418FC5F56003395E6"
-            BuildableName = "Morse Code.app"
-            BlueprintName = "Morse Code"
+            BuildableName = "Morse Mastah.app"
+            BlueprintName = "Morse Mastah"
             ReferencedContainer = "container:Morse Code.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B6343C418FC5F56003395E6"
-            BuildableName = "Morse Code.app"
-            BlueprintName = "Morse Code"
+            BuildableName = "Morse Mastah.app"
+            BlueprintName = "Morse Mastah"
             ReferencedContainer = "container:Morse Code.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -80,8 +80,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1B6343C418FC5F56003395E6"
-            BuildableName = "Morse Code.app"
-            BlueprintName = "Morse Code"
+            BuildableName = "Morse Mastah.app"
+            BlueprintName = "Morse Mastah"
             ReferencedContainer = "container:Morse Code.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

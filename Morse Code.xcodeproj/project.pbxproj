@@ -41,7 +41,7 @@
 
 /* Begin PBXFileReference section */
 		1B1F9E9218FDB6EC0001D79B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		1B6343C518FC5F56003395E6 /* Morse Code.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Morse Code.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B6343C518FC5F56003395E6 /* Morse Mastah.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Morse Mastah.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B6343C818FC5F56003395E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1B6343CA18FC5F56003395E6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1B6343CC18FC5F56003395E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -109,6 +109,7 @@
 		1B0E5FD418FC7D8B00D52F1A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1B80669518FEFE50007A5846 /* Delegates */,
 				1B6343DD18FC5F56003395E6 /* ViewController.h */,
 				1B6343DE18FC5F56003395E6 /* ViewController.m */,
 			);
@@ -129,7 +130,7 @@
 		1B6343C618FC5F56003395E6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1B6343C518FC5F56003395E6 /* Morse Code.app */,
+				1B6343C518FC5F56003395E6 /* Morse Mastah.app */,
 				1B6343E618FC5F56003395E6 /* Morse CodeTests.xctest */,
 			);
 			name = Products;
@@ -159,7 +160,6 @@
 				1B0E5FD318FC7D8500D52F1A /* Model */,
 				1B6343E018FC5F56003395E6 /* Images.xcassets */,
 				1B6343CF18FC5F56003395E6 /* Supporting Files */,
-				1B80669518FEFE50007A5846 /* Delegates */,
 			);
 			path = "Morse Code";
 			sourceTree = "<group>";
@@ -206,9 +206,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1B6343C418FC5F56003395E6 /* Morse Code */ = {
+		1B6343C418FC5F56003395E6 /* Morse Mastah */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1B6343F718FC5F56003395E6 /* Build configuration list for PBXNativeTarget "Morse Code" */;
+			buildConfigurationList = 1B6343F718FC5F56003395E6 /* Build configuration list for PBXNativeTarget "Morse Mastah" */;
 			buildPhases = (
 				9562882FBA3B490D9CD12E69 /* Check Pods Manifest.lock */,
 				1B6343C118FC5F56003395E6 /* Sources */,
@@ -220,9 +220,9 @@
 			);
 			dependencies = (
 			);
-			name = "Morse Code";
+			name = "Morse Mastah";
 			productName = "Morse Code";
-			productReference = 1B6343C518FC5F56003395E6 /* Morse Code.app */;
+			productReference = 1B6343C518FC5F56003395E6 /* Morse Mastah.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1B6343E518FC5F56003395E6 /* Morse CodeTests */ = {
@@ -270,7 +270,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1B6343C418FC5F56003395E6 /* Morse Code */,
+				1B6343C418FC5F56003395E6 /* Morse Mastah */,
 				1B6343E518FC5F56003395E6 /* Morse CodeTests */,
 			);
 		};
@@ -357,7 +357,7 @@
 /* Begin PBXTargetDependency section */
 		1B6343EC18FC5F56003395E6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1B6343C418FC5F56003395E6 /* Morse Code */;
+			target = 1B6343C418FC5F56003395E6 /* Morse Mastah */;
 			targetProxy = 1B6343EB18FC5F56003395E6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -540,7 +540,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1B6343F718FC5F56003395E6 /* Build configuration list for PBXNativeTarget "Morse Code" */ = {
+		1B6343F718FC5F56003395E6 /* Build configuration list for PBXNativeTarget "Morse Mastah" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1B6343F818FC5F56003395E6 /* Debug */,
