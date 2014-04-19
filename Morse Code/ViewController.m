@@ -20,7 +20,7 @@
 #define COMPARISON_PIXEL_ARRAY_LENGTH 102000
 
 enum CurrentState {
-    flash,
+    light,
     dark,
 } currentState;
 
@@ -298,7 +298,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             //handle new flash state
             if (currentFrameLightPeakingLevel > 0) {
-                currentState = flash;
+                currentState = light;
                 _flashFrameCounter++;
                 _darkFrameCounter = 0;
                 
@@ -311,7 +311,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
         //Act on sustain state
         } else {
-            if (currentState == flash) {
+            if (currentState == light) {
                 _flashFrameCounter++;
             } else {
                 _darkFrameCounter++;
@@ -347,68 +347,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             }
         }
     }
-    
 
-    
-    
-    /*
-     if (_frameCounter > FRAME_RATE) {
-     if (_currentAmbientBlueness > HIGH_BLUE_LEVEL) {
-     _lightFrameCounter++;
-     if (_lightFrameCounter == 1) {
-     _darkFrameCounter = 0; //reset dark frame counter because we are done counting dark frames
-     }
-     } else {
-     _darkFrameCounter++;
-     
-     switch (_darkFrameCounter) {
-     
-     case (FRAME_RATE / 10):
-     _characterElementString = [NSString stringWithFormat:@"%@%d", _characterElementString, _lightFrameCounter];
-     _lightFrameCounter = 0; //reset light frame counter because we are done counting bright frames
-     break;
-     
-     case (FRAME_RATE / 10) * 3:
-     //translate element string
-     _messageString = [NSString stringWithFormat:@"%@%c", _messageString, [MorseCodeMessage translateMorseToChar:_characterElementString]];
-     NSLog(@"%@", _characterElementString);
-     //translation method returns roman charcter
-     _characterElementString = @" ";
-     break;
-     
-     case (FRAME_RATE / 10) * 7:
-     //space between words
-     _messageString = [NSString stringWithFormat:@"%@ ", _messageString];
-     NSLog(@"end of word");
-     break;
-     
-     default:
-     if (_darkFrameCounter > FRAME_RATE) {
-     //kill message composition and recording
-     }
-     break;
-     }
-     }
-     
-     //compare luminocities
-     //        NSLog(@"blueness: %.5f %%", _currentAmbientBlueness);
-     } else {
-     //establish base ambient blue luminocity
-     _averageAmbientBlueness += _currentAmbientBlueness;
-     }
-     */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     _frameCounter++;
     
     previousFrameLightPeakingLevel = currentFrameLightPeakingLevel;
@@ -421,7 +360,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 -(void)interpretFlashIntervals
 {
         switch (_darkFrameCounter) {
-            case 1: _characterElementString = [NSString stringWithFormat:@"%@%ld", _characterElementString, _flashFrameCounter];
+            case 1: _characterElementString = [NSString stringWithFormat:@"%@%d", _characterElementString, _flashFrameCounter];
                 _flashFrameCounter = 0;
                 break;
             case 3:
