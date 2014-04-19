@@ -12,7 +12,17 @@
 #import "ProgressHUD.h"
 #import "TorchController.h"
 #import <CoreMotion/CoreMotion.h>
+#import "math.h"
 
+#define HIGH_BLUE_LEVEL (_averageAmbientBlueness * 1.2)
+#define FRAME_RATE 10
+#define MINIMUM_FRAMES_OF_LIGHT 3
+#define COMPARISON_PIXEL_ARRAY_LENGTH 102000
+
+enum CurrentState {
+    flash,
+    dark,
+} currentState;
 
 @interface ViewController () <UITextFieldDelegate, TorchControlleDelegate,AVCaptureVideoDataOutputSampleBufferDelegate>
 
@@ -28,18 +38,48 @@
 @property (strong, nonatomic) AVCaptureDeviceInput *input;
 @property (strong, nonatomic) AVCaptureVideoDataOutput *output;
 
+//video capture input
+@property (nonatomic, strong) NSString *characterElementString, *messageString;
+@property (nonatomic) NSInteger frameCounter, flashFrameCounter, darkFrameCounter;
+
+//text parsing and interpretation properties
+@property (nonatomic, strong) NSDate *lastEvent, *currentEvent;
 
 @property (nonatomic, strong) MorseCodeMessage *message;
 
+
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    //light metering
+    int pixelInArray;
+    int pixelLuminosity;
+    int currentFrameLightPeakingLevel;
+    int previousFrameLightPeakingLevel;
+    int luminosityEquator;
+    
+    //light peak analysis
+    BOOL lightMeterCalibrated;
+    
+    //frame buffer comparision
+    int pixelsLighterThanPreviousFrame;
+    size_t bufferWidth;
+    size_t bufferHeight;
+    size_t rowBytes;
+    size_t pixelBytes;
+    unsigned char *base;
+    int previousFrame[COMPARISON_PIXEL_ARRAY_LENGTH];
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    
+    //setup video capture properties
+    _characterElementString = @" ";
+    _messageString          = @" ";
+    _frameCounter           = _flashFrameCounter     = _darkFrameCounter       = 0;
+    lightMeterCalibrated    = NO;
     
     //allocate and initialize objects
     _torchController    = [TorchController new];
@@ -84,6 +124,11 @@
 }
 
 - (IBAction)getMessage:(id)sender {
+
+    [ProgressHUD show:@"Calibrating Lightmeter"];
+    [_sendMessageButton setEnabled:NO];
+    [_textField setEnabled:NO];
+    _interfacePanel.alpha = .5;
 
     [self setupCaptureSession];
     
@@ -172,7 +217,7 @@
     [_device lockForConfiguration:nil];
     [_device setExposureMode:AVCaptureExposureModeLocked];
     
-    [_device setActiveVideoMinFrameDuration:CMTimeMake(1, 10)];
+    [_device setActiveVideoMinFrameDuration:CMTimeMake(1, FRAME_RATE)];
     [_device unlockForConfiguration];
     
     // Create a VideoDataOutput and add it to the session
@@ -199,6 +244,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
 
+    //establish baseline
+
+    
     [self analyzeCameraFrameForLuminocity:sampleBuffer];
     
 }
@@ -212,37 +260,183 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
     
-    int redSaturation     = 0;
-    int blueSaturation    = 0;
-    int greenSaturation   = 0;
+    bufferWidth     = CVPixelBufferGetWidth(pixelBuffer);
+    bufferHeight    = CVPixelBufferGetHeight(pixelBuffer);
+    rowBytes        = CVPixelBufferGetBytesPerRow(pixelBuffer);
+    pixelBytes      = rowBytes/bufferWidth;
     
-    int bufferWidth     = CVPixelBufferGetWidth(pixelBuffer);
-    int bufferHeight    = CVPixelBufferGetHeight(pixelBuffer);
-    int rowBytes        = CVPixelBufferGetBytesPerRow(pixelBuffer);
-    int pixelBytes      = rowBytes/bufferWidth;
+    base            = (unsigned char *)CVPixelBufferGetBaseAddress(pixelBuffer);
+    pixelLuminosity = pixelInArray = currentFrameLightPeakingLevel = 0;
     
-    unsigned char *base = (unsigned char *)
-    CVPixelBufferGetBaseAddress(pixelBuffer);
-    
-    for( int row = 0; row < bufferHeight; row+=4 ) {
-        for( int column = 0; column < bufferWidth; column+=4 ) {
-            
+    //analyze bitmap for luminosity information
+    //programmed by CHRIS COHEN
+    for( int row = 0; row < bufferHeight; row++ ) {
+        for( int column = 0; column < bufferWidth; column++ ) {
+
             unsigned char *pixel = base + (row * rowBytes) + (column * pixelBytes);
+           
+            //pixel luminosity is the sum of red, green, and blue color components
+            pixelLuminosity = (pixel[0] + pixel[1] + pixel[2]);
             
-            // BGRA pixel format
-            redSaturation     += pixel[2];
-            blueSaturation    += pixel[0];
-            greenSaturation   += pixel[1];
-            
+            //if pixel is brighter than coresponding pixel in previous frame
+            if (pixelLuminosity > previousFrame[pixelInArray]) {
+                currentFrameLightPeakingLevel += (pixelLuminosity - previousFrame[pixelInArray]);
+            } else currentFrameLightPeakingLevel -= (previousFrame[pixelInArray] - pixelLuminosity);
+
+            //add pixel luminosity value to static array for comparison with next frame in buffer
+            previousFrame[pixelInArray++] = pixelLuminosity;
             }
     }
     
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0 );
-
-    NSLog(@"redness: %0.5f %%",  (255.0*redSaturation) / ((255.0*bufferWidth*bufferHeight)/4));
-    //NSLog(@"blueness: %.1f %%", (255.0*blueSaturation) / ((255.0*bufferWidth*bufferHeight)/4));
-    NSLog(@"greeness: %0.5f %%", (255.0*greenSaturation) / ((255.0*bufferWidth*bufferHeight)/4));
     
+    
+    if (lightMeterCalibrated) {
+        
+        //Act on light meter levels outside the luminosity equator
+        if (abs(currentFrameLightPeakingLevel) > luminosityEquator * 1) {
+            
+            //handle new flash state
+            if (currentFrameLightPeakingLevel > 0) {
+                currentState = flash;
+                _flashFrameCounter++;
+                _darkFrameCounter = 0;
+                
+            //handle new dark state
+            } else {
+                currentState = dark;
+                _darkFrameCounter++;
+                [self interpretFlashIntervals];
+            }
+            
+        //Act on sustain state
+        } else {
+            if (currentState == flash) {
+                _flashFrameCounter++;
+            } else {
+                _darkFrameCounter++;
+                [self interpretFlashIntervals];
+            }
+            
+        }
+        
+        
+    } else {
+        //Calibrate Light Meter
+        //programmed by MATT VOSS
+        if (_frameCounter > (FRAME_RATE * 2)) {
+            
+            lightMeterCalibrated = YES;
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [ProgressHUD dismiss];
+                [_sendMessageButton setEnabled:YES];
+                [_textField setEnabled:YES];
+                _interfacePanel.alpha = 1;
+            } ];
+            
+        } else {
+            
+            //calibrate meter
+            if (_frameCounter > 3) {
+                if (abs(currentFrameLightPeakingLevel) > luminosityEquator) {
+                    luminosityEquator = abs(currentFrameLightPeakingLevel);
+                }
+            } else {
+                luminosityEquator = abs(currentFrameLightPeakingLevel);
+            }
+        }
+    }
+    
+
+    
+    
+    /*
+     if (_frameCounter > FRAME_RATE) {
+     if (_currentAmbientBlueness > HIGH_BLUE_LEVEL) {
+     _lightFrameCounter++;
+     if (_lightFrameCounter == 1) {
+     _darkFrameCounter = 0; //reset dark frame counter because we are done counting dark frames
+     }
+     } else {
+     _darkFrameCounter++;
+     
+     switch (_darkFrameCounter) {
+     
+     case (FRAME_RATE / 10):
+     _characterElementString = [NSString stringWithFormat:@"%@%d", _characterElementString, _lightFrameCounter];
+     _lightFrameCounter = 0; //reset light frame counter because we are done counting bright frames
+     break;
+     
+     case (FRAME_RATE / 10) * 3:
+     //translate element string
+     _messageString = [NSString stringWithFormat:@"%@%c", _messageString, [MorseCodeMessage translateMorseToChar:_characterElementString]];
+     NSLog(@"%@", _characterElementString);
+     //translation method returns roman charcter
+     _characterElementString = @" ";
+     break;
+     
+     case (FRAME_RATE / 10) * 7:
+     //space between words
+     _messageString = [NSString stringWithFormat:@"%@ ", _messageString];
+     NSLog(@"end of word");
+     break;
+     
+     default:
+     if (_darkFrameCounter > FRAME_RATE) {
+     //kill message composition and recording
+     }
+     break;
+     }
+     }
+     
+     //compare luminocities
+     //        NSLog(@"blueness: %.5f %%", _currentAmbientBlueness);
+     } else {
+     //establish base ambient blue luminocity
+     _averageAmbientBlueness += _currentAmbientBlueness;
+     }
+     */
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    _frameCounter++;
+    
+    previousFrameLightPeakingLevel = currentFrameLightPeakingLevel;
+    
+}
+
+
+
+//Programmed by MATT VOSS
+-(void)interpretFlashIntervals
+{
+        switch (_darkFrameCounter) {
+            case 1: _characterElementString = [NSString stringWithFormat:@"%@%ld", _characterElementString, _flashFrameCounter];
+                _flashFrameCounter = 0;
+                break;
+            case 3:
+                _messageString = [NSString stringWithFormat:@"%@%c", _messageString, [MorseCodeMessage translateMorseToChar:_characterElementString]];
+                _characterElementString = @" ";
+                NSLog(@"%@", _messageString);
+                break;
+            case 7:
+                _messageString = [NSString stringWithFormat:@"%@ ", _messageString];
+                break;
+            case 37: //end of data
+                break;
+            default: //do nothing..
+                break;
+        }
 }
 
 @end

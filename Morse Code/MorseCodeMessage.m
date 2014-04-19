@@ -59,9 +59,7 @@
             case '8': morseCharacter = @"33311"; break;
             case '9': morseCharacter = @"33331"; break;
                 
-            //space
-            case ' ': morseCharacter = @"X";    break;
-                
+            //space                
             default: morseCharacter  = NULL;    break;
                 
         } //end switch
@@ -75,6 +73,68 @@
             _romanCharacterString = [NSString stringWithFormat:@"%@%c", _romanCharacterString, [romanCharacterString characterAtIndex:i]];
         }
     }
+}
+
++(char)translateMorseToChar:(NSString *)string
+{
+    char pants;
+    
+    string = [string stringByReplacingOccurrencesOfString:@"2" withString:@"3"];
+    
+    int chraint = [string intValue];
+    
+    
+    
+//    NSLog(@"%d", chraint);
+    
+    
+    switch (chraint) {
+        case 13:    pants = 'A'; break;
+        case 3111:  pants = 'B'; break;
+        case 3131:  pants = 'C'; break;
+        case 311:   pants = 'D'; break;
+        case 1:     pants = 'E'; break;
+        case 1131:  pants = 'F'; break;
+        case 331:   pants = 'G'; break;
+        case 1111:  pants = 'H'; break;
+        case 11:    pants = 'I'; break;
+        case 1333:  pants = 'J'; break;
+        case 313:   pants = 'K'; break;
+        case 1311:  pants = 'L'; break;
+        case 33:    pants = 'M'; break;
+        case 31:    pants = 'N'; break;
+        case 333:   pants = 'O'; break;
+        case 1331:  pants = 'P'; break;
+        case 3313:  pants = 'Q'; break;
+        case 131:   pants = 'R'; break;
+        case 111:   pants = 'S'; break;
+        case 3:     pants = 'T'; break;
+        case 113:   pants = 'U'; break;
+        case 1113:  pants = 'V'; break;
+        case 133:   pants = 'W'; break;
+        case 3113:  pants = 'X'; break;
+        case 3133:  pants = 'Y'; break;
+        case 3311:  pants = 'Z'; break;
+                
+                //numeric values
+        case 33333: pants = '0'; break;
+        case 13333: pants = '1'; break;
+        case 11333: pants = '2'; break;
+        case 11133: pants = '3'; break;
+        case 11113: pants = '4'; break;
+        case 11111: pants = '5'; break;
+        case 31111: pants = '6'; break;
+        case 33111: pants = '7'; break;
+        case 33311: pants = '8'; break;
+        case 33331: pants = '9'; break;
+                
+                //space
+            
+        default:    pants = ' '; break;
+                
+    } //end switch
+    
+    return pants;
 }
 
 

@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString *romanCharacterString, *morseCharacterString;
 
 -(void)setRomanCharacterString:(NSString *)romanCharacterString;
++(char)translateMorseToChar:(NSString *)string;
 
 @end
