@@ -38,10 +38,10 @@
     [_morseQueue addOperationWithBlock:^{
     
         //translated & untranslated charcter incrementors
-        NSInteger i, j = 0;
+        NSInteger j = 0;
     
         //iterate through each character in the translated string and display them via flash
-        for (i = 1; i < (message.morseCharacterString.length); i++) {
+        for (int i = 0; i < (message.morseCharacterString.length); i++) {
         
             if (_earlyTermination) goto TERMINATION_POINT;
         

@@ -15,7 +15,7 @@
 #import "math.h"
 
 #define HIGH_BLUE_LEVEL (_averageAmbientBlueness * 1.2)
-#define FRAME_RATE 10
+#define FRAME_RATE 30
 #define MINIMUM_FRAMES_OF_LIGHT 3
 #define COMPARISON_PIXEL_ARRAY_LENGTH 102000
 
@@ -84,7 +84,7 @@ enum CurrentState {
     //allocate and initialize objects
     _torchController    = [TorchController new];
     _message            = [MorseCodeMessage new];
-
+    
     //assign delegate methods to self
     _torchController.delegate   = self;
     _textField.delegate         = self;
@@ -124,12 +124,14 @@ enum CurrentState {
 }
 
 - (IBAction)getMessage:(id)sender {
-
+    
+    _frameCounter = 0;
+    lightMeterCalibrated = NO;
     [ProgressHUD show:@"Calibrating Lightmeter"];
     [_sendMessageButton setEnabled:NO];
     [_textField setEnabled:NO];
     _interfacePanel.alpha = .5;
-
+    
     [self setupCaptureSession];
     
 }
@@ -165,8 +167,8 @@ enum CurrentState {
     [_sendMessageButton setEnabled:NO];
     [_textField setEnabled:NO];
     _interfacePanel.alpha = .5;
-
-   [_torchController transmitMessage:_message];
+    
+    [_torchController transmitMessage:_message];
 }
 
 //dismiss keyboard when anything is touched
@@ -209,7 +211,7 @@ enum CurrentState {
         NSLog(@"error establishing device input");
         return;
     }
-
+    
     //add input to session
     [_session addInput:_input];
     
@@ -235,7 +237,7 @@ enum CurrentState {
     
     // Start the session running to start the flow of data
     [_session startRunning];
-
+    
 }
 
 // Delegate routine that is called when a sample buffer was written
@@ -243,16 +245,16 @@ enum CurrentState {
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
-
-    //establish baseline
-
     
-    [self analyzeCameraFrameForLuminocity:sampleBuffer];
+    //establish baseline
+    
+    
+    [self analyzeCameraFrameForLuminosity:sampleBuffer];
     
 }
 
 
-- (void)analyzeCameraFrameForLuminocity:(CMSampleBufferRef)sampleBuffer
+- (void)analyzeCameraFrameForLuminosity:(CMSampleBufferRef)sampleBuffer
 {
     
     CVPixelBufferRef pixelBuffer =
@@ -272,9 +274,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     //programmed by CHRIS COHEN
     for( int row = 0; row < bufferHeight; row++ ) {
         for( int column = 0; column < bufferWidth; column++ ) {
-
+            
             unsigned char *pixel = base + (row * rowBytes) + (column * pixelBytes);
-           
+            
             //pixel luminosity is the sum of red, green, and blue color components
             pixelLuminosity = (pixel[0] + pixel[1] + pixel[2]);
             
@@ -282,19 +284,20 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             if (pixelLuminosity > previousFrame[pixelInArray]) {
                 currentFrameLightPeakingLevel += (pixelLuminosity - previousFrame[pixelInArray]);
             } else currentFrameLightPeakingLevel -= (previousFrame[pixelInArray] - pixelLuminosity);
-
+            
             //add pixel luminosity value to static array for comparison with next frame in buffer
             previousFrame[pixelInArray++] = pixelLuminosity;
-            }
+        }
     }
     
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0 );
     
-    
+    //Qualifying filter
+    //Programmed by CHRIS COHEN
     if (lightMeterCalibrated) {
         
         //Act on light meter levels outside the luminosity equator
-        if (abs(currentFrameLightPeakingLevel) > luminosityEquator * 1) {
+        if (abs(currentFrameLightPeakingLevel) > luminosityEquator * .75) {
             
             //handle new flash state
             if (currentFrameLightPeakingLevel > 0) {
@@ -302,14 +305,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 _flashFrameCounter++;
                 _darkFrameCounter = 0;
                 
-            //handle new dark state
+                //handle new dark state
             } else {
                 currentState = dark;
                 _darkFrameCounter++;
                 [self interpretFlashIntervals];
             }
             
-        //Act on sustain state
+            //Act on sustain state
         } else {
             if (currentState == light) {
                 _flashFrameCounter++;
@@ -347,35 +350,39 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             }
         }
     }
-
+    
     _frameCounter++;
     
     previousFrameLightPeakingLevel = currentFrameLightPeakingLevel;
     
 }
 
-
-
 //Programmed by MATT VOSS
 -(void)interpretFlashIntervals
 {
-        switch (_darkFrameCounter) {
-            case 1: _characterElementString = [NSString stringWithFormat:@"%@%d", _characterElementString, _flashFrameCounter];
-                _flashFrameCounter = 0;
-                break;
-            case 3:
-                _messageString = [NSString stringWithFormat:@"%@%c", _messageString, [MorseCodeMessage translateMorseToChar:_characterElementString]];
-                _characterElementString = @" ";
-                NSLog(@"%@", _messageString);
-                break;
-            case 7:
-                _messageString = [NSString stringWithFormat:@"%@ ", _messageString];
-                break;
-            case 37: //end of data
-                break;
-            default: //do nothing..
-                break;
-        }
+    
+    switch (_darkFrameCounter) {
+        case 1: _characterElementString = [NSString stringWithFormat:@"%@%d", _characterElementString, (_flashFrameCounter / 3)];
+            _flashFrameCounter = 0;
+            break;
+        case 8:
+            _messageString = [NSString stringWithFormat:@"%@%c", _messageString, [MorseCodeMessage translateMorseToChar:_characterElementString]];
+            _characterElementString = @" ";
+            break;
+        case 19:
+            _messageString = [NSString stringWithFormat:@"%@ ", _messageString];
+            break;
+        case 37: //end of data
+            break;
+        default: //do nothing..
+            break;
+    }
+    NSLog(@"%@", _characterElementString);
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        _label.text =  _messageString;
+    }];
+    
 }
 
 @end

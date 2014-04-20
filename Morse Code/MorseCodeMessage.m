@@ -10,16 +10,17 @@
 
 @implementation MorseCodeMessage
 
--(void)setRomanCharacterString:(NSString *)romanCharacterString {
+-(void)setRomanCharacterString:(NSString *)oldRomanCharacterString {
     
+    _morseCharacterString = @"1|";
     _romanCharacterString = @"";
     NSString *morseCharacter = @"";
     
-    for (NSInteger i = 0; i < (romanCharacterString.length); i++) {
+    for (NSInteger i = 0; i < (oldRomanCharacterString.length); i++) {
         
-        switch ([romanCharacterString characterAtIndex:i]) {
+        switch ([oldRomanCharacterString characterAtIndex:i]) {
                 
-            //roman characters
+                //roman characters
             case 'a': case 'A': morseCharacter = @"13";     break;
             case 'b': case 'B': morseCharacter = @"3111";   break;
             case 'c': case 'C': morseCharacter = @"3131";   break;
@@ -47,7 +48,7 @@
             case 'y': case 'Y': morseCharacter = @"3133";   break;
             case 'z': case 'Z': morseCharacter = @"3311";   break;
                 
-            //numeric values
+                //numeric values
             case '0': morseCharacter = @"33333"; break;
             case '1': morseCharacter = @"13333"; break;
             case '2': morseCharacter = @"11333"; break;
@@ -59,8 +60,11 @@
             case '8': morseCharacter = @"33311"; break;
             case '9': morseCharacter = @"33331"; break;
                 
-            //space                
-            default: morseCharacter  = NULL;    break;
+                //non alphanumeric characters
+            case '!': case '@': case '#': case '$': case '%': case '.': case ',': case ':': case ';':
+                
+                //space
+            default: morseCharacter  = @"X";    break;
                 
         } //end switch
         
@@ -70,71 +74,68 @@
             _morseCharacterString = [NSString stringWithFormat:@"%@|%@", _morseCharacterString, morseCharacter];
             
             //recompose roman character string
-            _romanCharacterString = [NSString stringWithFormat:@"%@%c", _romanCharacterString, [romanCharacterString characterAtIndex:i]];
+            _romanCharacterString = [NSString stringWithFormat:@"%@%c", _romanCharacterString, [oldRomanCharacterString characterAtIndex:i]];
         }
     }
+    
+    _romanCharacterString = [NSString stringWithFormat:@"%@     ", _romanCharacterString];
+    
 }
 
 +(char)translateMorseToChar:(NSString *)string
 {
-    char pants;
+    char romanCharacter;
     
+    string = [string stringByReplacingOccurrencesOfString:@"0" withString:@"1"];
     string = [string stringByReplacingOccurrencesOfString:@"2" withString:@"3"];
     
-    int chraint = [string intValue];
-    
-    
-    
-//    NSLog(@"%d", chraint);
-    
-    
-    switch (chraint) {
-        case 13:    pants = 'A'; break;
-        case 3111:  pants = 'B'; break;
-        case 3131:  pants = 'C'; break;
-        case 311:   pants = 'D'; break;
-        case 1:     pants = 'E'; break;
-        case 1131:  pants = 'F'; break;
-        case 331:   pants = 'G'; break;
-        case 1111:  pants = 'H'; break;
-        case 11:    pants = 'I'; break;
-        case 1333:  pants = 'J'; break;
-        case 313:   pants = 'K'; break;
-        case 1311:  pants = 'L'; break;
-        case 33:    pants = 'M'; break;
-        case 31:    pants = 'N'; break;
-        case 333:   pants = 'O'; break;
-        case 1331:  pants = 'P'; break;
-        case 3313:  pants = 'Q'; break;
-        case 131:   pants = 'R'; break;
-        case 111:   pants = 'S'; break;
-        case 3:     pants = 'T'; break;
-        case 113:   pants = 'U'; break;
-        case 1113:  pants = 'V'; break;
-        case 133:   pants = 'W'; break;
-        case 3113:  pants = 'X'; break;
-        case 3133:  pants = 'Y'; break;
-        case 3311:  pants = 'Z'; break;
-                
-                //numeric values
-        case 33333: pants = '0'; break;
-        case 13333: pants = '1'; break;
-        case 11333: pants = '2'; break;
-        case 11133: pants = '3'; break;
-        case 11113: pants = '4'; break;
-        case 11111: pants = '5'; break;
-        case 31111: pants = '6'; break;
-        case 33111: pants = '7'; break;
-        case 33311: pants = '8'; break;
-        case 33331: pants = '9'; break;
-                
-                //space
+    switch ([string intValue]) {
+        case 13:    romanCharacter = 'A'; break;
+        case 3111:  romanCharacter = 'B'; break;
+        case 3131:  romanCharacter = 'C'; break;
+        case 311:   romanCharacter = 'D'; break;
+        case 1:     romanCharacter = 'E'; break;
+        case 1131:  romanCharacter = 'F'; break;
+        case 331:   romanCharacter = 'G'; break;
+        case 1111:  romanCharacter = 'H'; break;
+        case 11:    romanCharacter = 'I'; break;
+        case 1333:  romanCharacter = 'J'; break;
+        case 313:   romanCharacter = 'K'; break;
+        case 1311:  romanCharacter = 'L'; break;
+        case 33:    romanCharacter = 'M'; break;
+        case 31:    romanCharacter = 'N'; break;
+        case 333:   romanCharacter = 'O'; break;
+        case 1331:  romanCharacter = 'P'; break;
+        case 3313:  romanCharacter = 'Q'; break;
+        case 131:   romanCharacter = 'R'; break;
+        case 111:   romanCharacter = 'S'; break;
+        case 3:     romanCharacter = 'T'; break;
+        case 113:   romanCharacter = 'U'; break;
+        case 1113:  romanCharacter = 'V'; break;
+        case 133:   romanCharacter = 'W'; break;
+        case 3113:  romanCharacter = 'X'; break;
+        case 3133:  romanCharacter = 'Y'; break;
+        case 3311:  romanCharacter = 'Z'; break;
             
-        default:    pants = ' '; break;
-                
+            //numeric values
+        case 33333: romanCharacter = '0'; break;
+        case 13333: romanCharacter = '1'; break;
+        case 11333: romanCharacter = '2'; break;
+        case 11133: romanCharacter = '3'; break;
+        case 11113: romanCharacter = '4'; break;
+        case 11111: romanCharacter = '5'; break;
+        case 31111: romanCharacter = '6'; break;
+        case 33111: romanCharacter = '7'; break;
+        case 33311: romanCharacter = '8'; break;
+        case 33331: romanCharacter = '9'; break;
+            
+            //space
+            
+        default:    romanCharacter = ' '; break;
+            
     } //end switch
     
-    return pants;
+    return romanCharacter;
 }
 
 
