@@ -12,9 +12,11 @@
 
 -(void)setRomanCharacterString:(NSString *)oldRomanCharacterString {
     
-    _morseCharacterString = @"1|";
+    _morseCharacterString = @"X";
     _romanCharacterString = @"";
     NSString *morseCharacter = @"";
+    
+    SKIP_NON_ALPHANUMERIC:
     
     for (NSInteger i = 0; i < (oldRomanCharacterString.length); i++) {
         
@@ -62,9 +64,11 @@
                 
                 //non alphanumeric characters
             case '!': case '@': case '#': case '$': case '%': case '.': case ',': case ':': case ';':
+                goto SKIP_NON_ALPHANUMERIC;
+                break;
                 
                 //space
-            default: morseCharacter  = @"X";    break;
+            default: morseCharacter  = @"X";break;
                 
         } //end switch
         
@@ -86,9 +90,17 @@
 {
     char romanCharacter;
     
+    //filter incoming data
     string = [string stringByReplacingOccurrencesOfString:@"0" withString:@"1"];
     string = [string stringByReplacingOccurrencesOfString:@"2" withString:@"3"];
-    
+    string = [string stringByReplacingOccurrencesOfString:@"4" withString:@"3"];
+    string = [string stringByReplacingOccurrencesOfString:@"5" withString:@"3"];
+    string = [string stringByReplacingOccurrencesOfString:@"6" withString:@"3"];
+    string = [string stringByReplacingOccurrencesOfString:@"7" withString:@"3"];
+    string = [string stringByReplacingOccurrencesOfString:@"8" withString:@"3"];
+    string = [string stringByReplacingOccurrencesOfString:@"9" withString:@"3"];
+
+
     switch ([string intValue]) {
         case 13:    romanCharacter = 'A'; break;
         case 3111:  romanCharacter = 'B'; break;

@@ -62,7 +62,6 @@
 		1B6343F318FC5F56003395E6 /* Morse_CodeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Morse_CodeTests.m; sourceTree = "<group>"; };
 		1B80669218FEFE4A007A5846 /* TorchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TorchController.h; sourceTree = "<group>"; };
 		1B80669318FEFE4A007A5846 /* TorchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TorchController.m; sourceTree = "<group>"; };
-		1B8C5C561901A4F2004F72F9 /* Basic Camera Luminocity .rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "Basic Camera Luminocity .rtf"; path = "../../../../../../Desktop/Basic Camera Luminocity .rtf"; sourceTree = "<group>"; };
 		1BE23A2B18FDC512000CC001 /* MorseCodeMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MorseCodeMessage.h; sourceTree = "<group>"; };
 		1BE23A2C18FDC512000CC001 /* MorseCodeMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MorseCodeMessage.m; sourceTree = "<group>"; };
 		1BE256E418FF25FB00158AEC /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -113,7 +112,6 @@
 				1B80669518FEFE50007A5846 /* Delegates */,
 				1B6343DD18FC5F56003395E6 /* ViewController.h */,
 				1B6343DE18FC5F56003395E6 /* ViewController.m */,
-				1B8C5C561901A4F2004F72F9 /* Basic Camera Luminocity .rtf */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

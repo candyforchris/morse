@@ -17,7 +17,7 @@
 #define HIGH_BLUE_LEVEL (_averageAmbientBlueness * 1.2)
 #define FRAME_RATE 30
 #define MINIMUM_FRAMES_OF_LIGHT 3
-#define COMPARISON_PIXEL_ARRAY_LENGTH 102000
+#define COMPARISON_PIXEL_ARRAY_LENGTH 310000
 
 enum CurrentState {
     light,
@@ -199,7 +199,7 @@ enum CurrentState {
     _session = [AVCaptureSession new];
     
     // Configure the session to produce low resolution video frames
-    _session.sessionPreset = AVCaptureSessionPreset352x288;
+    _session.sessionPreset = AVCaptureSessionPreset640x480;
     
     // Find a suitable AVCaptureDevice
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -245,14 +245,22 @@ enum CurrentState {
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
-    
-    //establish baseline
-    
-    
+
     [self analyzeCameraFrameForLuminosity:sampleBuffer];
     
 }
 
+
+- (void)compareLuminosityWithPreviousFrame:(unsigned char *)pixel
+{
+    //pixel luminosity is the sum of red, green, and blue color components
+    pixelLuminosity = (pixel[0] + pixel[1] + pixel[2]);
+    
+    //if pixel is brighter than coresponding pixel in previous frame
+    if (pixelLuminosity > previousFrame[pixelInArray]) {
+        currentFrameLightPeakingLevel += (pixelLuminosity - previousFrame[pixelInArray]);
+    } else currentFrameLightPeakingLevel -= (previousFrame[pixelInArray] - pixelLuminosity);
+}
 
 - (void)analyzeCameraFrameForLuminosity:(CMSampleBufferRef)sampleBuffer
 {
@@ -275,15 +283,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     for( int row = 0; row < bufferHeight; row++ ) {
         for( int column = 0; column < bufferWidth; column++ ) {
             
-            unsigned char *pixel = base + (row * rowBytes) + (column * pixelBytes);
-            
-            //pixel luminosity is the sum of red, green, and blue color components
-            pixelLuminosity = (pixel[0] + pixel[1] + pixel[2]);
-            
-            //if pixel is brighter than coresponding pixel in previous frame
-            if (pixelLuminosity > previousFrame[pixelInArray]) {
-                currentFrameLightPeakingLevel += (pixelLuminosity - previousFrame[pixelInArray]);
-            } else currentFrameLightPeakingLevel -= (previousFrame[pixelInArray] - pixelLuminosity);
+            [self compareLuminosityWithPreviousFrame:(base + (row * rowBytes) + (column * pixelBytes))];
             
             //add pixel luminosity value to static array for comparison with next frame in buffer
             previousFrame[pixelInArray++] = pixelLuminosity;
@@ -297,7 +297,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     if (lightMeterCalibrated) {
         
         //Act on light meter levels outside the luminosity equator
-        if (abs(currentFrameLightPeakingLevel) > luminosityEquator * .75) {
+        if (abs(currentFrameLightPeakingLevel) > luminosityEquator) {
             
             //handle new flash state
             if (currentFrameLightPeakingLevel > 0) {
@@ -305,14 +305,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 _flashFrameCounter++;
                 _darkFrameCounter = 0;
                 
-                //handle new dark state
+            //handle new dark state
             } else {
                 currentState = dark;
                 _darkFrameCounter++;
                 [self interpretFlashIntervals];
             }
             
-            //Act on sustain state
+        //Act on sustain state
         } else {
             if (currentState == light) {
                 _flashFrameCounter++;
@@ -353,8 +353,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     _frameCounter++;
     
-    previousFrameLightPeakingLevel = currentFrameLightPeakingLevel;
-    
 }
 
 //Programmed by MATT VOSS
@@ -362,22 +360,22 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     
     switch (_darkFrameCounter) {
-        case 1: _characterElementString = [NSString stringWithFormat:@"%@%d", _characterElementString, (_flashFrameCounter / 3)];
+        case 1: _characterElementString = [NSString stringWithFormat:@"%@%d", _characterElementString, (_flashFrameCounter / (int)(FRAME_RATE * .1))];
             _flashFrameCounter = 0;
             break;
-        case 8:
+        case (((int)(FRAME_RATE * .3)) - 1):
             _messageString = [NSString stringWithFormat:@"%@%c", _messageString, [MorseCodeMessage translateMorseToChar:_characterElementString]];
             _characterElementString = @" ";
             break;
-        case 19:
+        case (((int)(FRAME_RATE * .7)) - 2):
             _messageString = [NSString stringWithFormat:@"%@ ", _messageString];
             break;
-        case 37: //end of data
+        case (FRAME_RATE * 5): //end of data
+            [_session stopRunning];
             break;
         default: //do nothing..
             break;
     }
-    NSLog(@"%@", _characterElementString);
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         _label.text =  _messageString;
